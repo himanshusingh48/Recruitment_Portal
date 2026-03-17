@@ -29,7 +29,8 @@ const CreateJob = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/jobs', formData, {
+            const API = import.meta.env.VITE_API_URL;
+            await axios.post(`${API}/api/jobs`, formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             navigate('/');

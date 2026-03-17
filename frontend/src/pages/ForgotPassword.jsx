@@ -16,7 +16,8 @@ const ForgotPassword = () => {
         setMessage('');
 
         try {
-            const res = await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+            const API = import.meta.env.VITE_API_URL;
+            const res = await axios.post(`${API}/api/auth/forgot-password`, { email });
             setMessage(res.data.message);
         } catch (err) {
             setError(err.response?.data?.message || 'Error processing request');

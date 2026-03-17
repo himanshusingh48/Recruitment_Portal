@@ -22,7 +22,8 @@ const JobDetails = () => {
     useEffect(() => {
         const fetchJob = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/jobs/${id}`);
+                const API = import.meta.env.VITE_API_URL;
+                const res = await axios.get(`${API}/api/jobs/${id}`);
                 setJob(res.data);
             } catch (err) {
                 setError('Failed to load job details.');
@@ -45,8 +46,9 @@ const JobDetails = () => {
 
         try {
             const token = localStorage.getItem('token');
+            const API = import.meta.env.VITE_API_URL;
             await axios.post(
-                `http://localhost:5000/api/applications/${id}`,
+                `${API}/api/applications/${id}`,
                 applicationData,
                 { headers: { Authorization: `Bearer ${token}` } }
             );

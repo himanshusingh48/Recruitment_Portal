@@ -12,7 +12,8 @@ const Dashboard = () => {
         const fetchApplications = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get('http://localhost:5000/api/applications', {
+                const API = import.meta.env.VITE_API_URL;
+                const res = await axios.get(`${API}/api/applications`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setApplications(res.data);
@@ -31,8 +32,9 @@ const Dashboard = () => {
     const updateStatus = async (id, status) => {
         try {
             const token = localStorage.getItem('token');
+            const API = import.meta.env.VITE_API_URL;
             await axios.put(
-                `http://localhost:5000/api/applications/${id}/status`,
+                `${API}/api/applications/${id}/status`,
                 { status },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

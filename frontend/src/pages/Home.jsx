@@ -10,7 +10,8 @@ const Home = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/jobs');
+                const API = import.meta.env.VITE_API_URL;
+                const res = await axios.get(`${API}/api/jobs`);
                 setJobs(res.data);
             } catch (err) {
                 console.error('Error fetching jobs', err);
