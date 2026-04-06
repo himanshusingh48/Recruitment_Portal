@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { LogIn } from 'lucide-react';
+import './Auth.css';
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });

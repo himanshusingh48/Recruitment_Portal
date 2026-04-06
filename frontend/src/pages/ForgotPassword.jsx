@@ -30,7 +30,7 @@ const ForgotPassword = () => {
         <div className="auth-container">
             <div className="glass-panel auth-card animate-fade-in">
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
-                    <div style={{ background: 'rgba(99, 102, 241, 0.2)', padding: '1rem', borderRadius: '50%' }}>
+                    <div style={{ background: 'rgba(0, 82, 204, 0.08)', padding: '1rem', borderRadius: '50%' }}>
                         <KeyRound size={32} color="var(--primary)" />
                     </div>
                 </div>
@@ -61,7 +61,7 @@ const ForgotPassword = () => {
                 </form>
 
                 <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
-                    <Link to="/login" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'white'} onMouseOut={e => e.target.style.color = 'var(--text-muted)'}>
+                    <Link to="/login" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--primary)'} onMouseOut={e => e.target.style.color = 'var(--text-muted)'}>
                         <ArrowLeft size={16} /> Back to Login
                     </Link>
                 </div>

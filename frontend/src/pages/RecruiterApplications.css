@@ -1,0 +1,110 @@
+/* =====================
+   Recruiter Applications
+   ===================== */
+.ra-card {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ra-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(9, 30, 66, 0.12);
+}
+
+.ra-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all 0.18s ease;
+    text-decoration: none;
+}
+
+.ra-btn-accept {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border-color: #10b981;
+}
+
+.ra-btn-accept:hover:not(:disabled) {
+    background: #10b981;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.ra-btn-reject {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: #ef4444;
+}
+
+.ra-btn-reject:hover:not(:disabled) {
+    background: #ef4444;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
+
+.ra-btn-review {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.ra-btn-review:hover:not(:disabled) {
+    background: #3b82f6;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+}
+
+.ra-btn-download {
+    background: rgba(0, 82, 204, 0.08);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.ra-btn-download:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+}
+
+.ra-btn-edit {
+    background: rgba(99, 102, 241, 0.08);
+    color: #6366f1;
+    border-color: #6366f1;
+}
+
+.ra-btn-edit:hover:not(:disabled) {
+    background: #6366f1;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+.ra-btn-delete {
+    background: rgba(239, 68, 68, 0.06);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.ra-btn-delete:hover:not(:disabled) {
+    background: #ef4444;
+    color: #fff;
+    border-color: #ef4444;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
+
+.ra-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

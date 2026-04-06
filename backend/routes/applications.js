@@ -3,40 +3,100 @@ const router = express.Router();
 const Application = require('../models/Application');
 const Job = require('../models/Job');
 const { auth, isRecruiter } = require('../middleware/auth');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
-// POST /api/applications/:jobId (Applicant only)
-router.post('/:jobId', auth, async (req, res) => {
-    try {
-        if (req.user.role !== 'applicant') {
-            return res.status(403).json({ message: 'Only applicants can apply for jobs' });
-        }
+// Make sure uploads folder always exists
+const uploadDir = path.join(__dirname, '..', 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
-        const { coverLetter, resumeLink } = req.body;
-        const jobId = req.params.jobId;
-
-        const job = await Job.findById(jobId);
-        if (!job) return res.status(404).json({ message: 'Job not found' });
-
-        // Check if already applied
-        const existingApplication = await Application.findOne({ job: jobId, applicant: req.user.id });
-        if (existingApplication) {
-            return res.status(400).json({ message: 'You have already applied for this job' });
-        }
-
-        const newRef = new Application({
-            job: jobId,
-            applicant: req.user.id,
-            coverLetter,
-            resumeLink
-        });
-
-        const savedApp = await newRef.save();
-        res.status(201).json(savedApp);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server Error' });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
+
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype === 'application/pdf') {
+            cb(null, true);
+        } else {
+            return cb(new Error('Only .pdf format allowed!'), false);
+        }
+    }
+});
+
+// Multer error handler middleware (Express 5 compatible)
+const handleMulterError = (err, req, res, next) => {
+    if (err) {
+        return res.status(400).json({ message: err.message || 'File upload error. Only PDF allowed.' });
+    }
+    next();
+};
+
+// POST /api/applications/:jobId (Applicant only)
+router.post(
+    '/:jobId',
+    auth,
+    upload.single('resume'),
+    handleMulterError,
+    async (req, res) => {
+        try {
+            if (req.user.role !== 'applicant') {
+                return res.status(403).json({ message: 'Only applicants can apply for jobs' });
+            }
+
+            const { coverLetter, email, phone } = req.body;
+            const resume = req.file ? req.file.filename : null;
+            const jobId = req.params.jobId;
+
+            console.log('[Apply] jobId:', jobId, '| file:', req.file?.filename, '| email:', email, '| phone:', phone);
+
+            if (!resume) {
+                return res.status(400).json({ message: 'Resume (PDF) is required' });
+            }
+            if (!email) {
+                return res.status(400).json({ message: 'Email address is required' });
+            }
+            if (!phone) {
+                return res.status(400).json({ message: 'Phone number is required' });
+            }
+
+            const job = await Job.findById(jobId).lean();
+            if (!job) return res.status(404).json({ message: 'Job not found' });
+
+            const existingApplication = await Application.findOne({
+                job: jobId,
+                applicant: req.user._id
+            });
+            if (existingApplication) {
+                return res.status(400).json({ message: 'You have already applied for this job' });
+            }
+
+            const newRef = new Application({
+                job: jobId,
+                applicant: req.user._id,
+                coverLetter: coverLetter || '',
+                resume,
+                email,
+                phone
+            });
+
+            const savedApp = await newRef.save();
+            res.status(201).json(savedApp);
+        } catch (err) {
+            console.error('[Apply Error]', err.name, '-', err.message);
+            res.status(500).json({ message: err.message || 'Server Error' });
+        }
+    }
+);
 
 // GET /api/applications (My Applications for applicant, or received applications for recruiter)
 router.get('/', auth, async (req, res) => {

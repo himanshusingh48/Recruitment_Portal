@@ -111,4 +111,32 @@ router.get('/me', require('../middleware/auth').auth, async (req, res) => {
     }
 });
 
+// PUT /api/auth/profile
+router.put('/profile', require('../middleware/auth').auth, async (req, res) => {
+    try {
+        const { name, email } = req.body;
+        const user = await User.findById(req.user.id);
+
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        // If email is changing, check if new email is already in use
+        if (email !== user.email) {
+            const existingUser = await User.findOne({ email });
+            if (existingUser) {
+                return res.status(400).json({ message: 'Email is already in use' });
+            }
+        }
+
+        user.name = name || user.name;
+        user.email = email || user.email;
+
+        await user.save();
+
+        res.json({ id: user.id, name: user.name, email: user.email, role: user.role });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
 module.exports = router;

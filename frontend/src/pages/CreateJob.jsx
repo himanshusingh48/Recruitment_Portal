@@ -14,7 +14,8 @@ const CreateJob = () => {
         location: '',
         salary: '',
         description: '',
-        requirements: ''
+        requirements: '',
+        closingDate: ''
     });
 
     const [error, setError] = useState('');
@@ -73,6 +74,20 @@ const CreateJob = () => {
                         <div className="form-group" style={{ marginBottom: 0 }}>
                             <label className="form-label">Salary Range</label>
                             <input type="text" name="salary" className="form-input" value={formData.salary} onChange={handleChange} required placeholder="e.g. $100k - $120k" />
+                        </div>
+
+                        <div className="form-group" style={{ marginBottom: 0 }}>
+                            <label className="form-label">Application Closing Date *</label>
+                            <input
+                                type="date"
+                                name="closingDate"
+                                className="form-input"
+                                value={formData.closingDate}
+                                onChange={handleChange}
+                                required
+                                min={new Date(Date.now() + 86400000).toISOString().split('T')[0]}
+                            />
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>The job will be automatically removed after this date.</p>
                         </div>
                     </div>
 

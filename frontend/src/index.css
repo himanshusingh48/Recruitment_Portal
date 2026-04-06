@@ -1,16 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
-  --secondary: #ec4899;
-  --bg-dark: #0f172a;
-  --bg-card: rgba(30, 41, 59, 0.7);
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --transition: all 0.3s ease;
+  --primary: #0052CC;
+  /* Professional Blue */
+  --primary-hover: #0747A6;
+  --secondary: #172B4D;
+  --bg-dark: #F4F5F7;
+  /* Main background */
+  --bg-card: #FFFFFF;
+  --text-main: #172B4D;
+  /* Dark text for readability */
+  --text-muted: #6B778C;
+  --glass-border: #DFE1E6;
+  --glass-shadow: 0 4px 12px rgba(9, 30, 66, 0.08);
+  /* Soft professional shadow */
+  --transition: all 0.2s ease;
+  --navbar-bg: #FFFFFF;
+  --input-bg: #FFFFFF;
+}
+
+/* Dark Mode Variables */
+[data-theme='dark'] {
+  --primary: #4C9AFF;
+  --primary-hover: #2684FF;
+  --secondary: #B8C7E0;
+  --bg-dark: #0D1117;
+  --bg-card: #161B22;
+  --text-main: #E6EDF3;
+  --text-muted: #8B949E;
+  --glass-border: #30363D;
+  --glass-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --navbar-bg: #161B22;
+  --input-bg: #1C2128;
+}
+
+/* Smooth theme transition */
+body,
+.navbar,
+.glass-panel,
+.form-input,
+.btn {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 * {
@@ -20,36 +50,35 @@
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg-dark);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-main);
   color: var(--text-main);
+  line-height: 1.6;
   min-height: 100vh;
-  /* Add a beautiful ambient background gradient */
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
-  background-attachment: fixed;
-  background-size: cover;
-  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Glassmorphism Classes */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glassmorphism Classes -> Now plain professional cards */
 .glass-panel {
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  border-radius: 16px;
+  border-radius: 12px;
   box-shadow: var(--glass-shadow);
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #c084fc, #6366f1, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-main);
   margin-bottom: 1rem;
 }
 
@@ -67,15 +96,15 @@ body {
 .form-label {
   display: block;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--text-muted);
+  color: var(--text-main);
 }
 
 .form-input {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--input-bg);
   border: 1px solid var(--glass-border);
   border-radius: 8px;
   color: var(--text-main);
@@ -87,8 +116,7 @@ body {
 .form-input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.15);
 }
 
 .form-textarea {
@@ -101,78 +129,40 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
   font-weight: 600;
   font-family: inherit;
   font-size: 1rem;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   border: none;
   gap: 0.5rem;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: linear-gradient(135deg, #6366f1, #a855f7);
   color: white;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .btn-primary:hover {
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   color: var(--text-main);
   border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--glass-border);
   transform: translateY(-2px);
-}
-
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--glass-border);
-}
-
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.nav-link {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.nav-link:hover, .nav-link.active {
-  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* Layout Utilities */
@@ -198,7 +188,7 @@ body {
 /* Job Card Details */
 .job-card {
   padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -206,21 +196,21 @@ body {
 }
 
 .job-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(9, 30, 66, 0.1);
+  border-color: rgba(0, 82, 204, 0.3);
 }
 
 .job-title {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.5rem;
-  color: white;
+  color: var(--text-main);
 }
 
 .job-company {
   color: var(--primary);
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
@@ -246,35 +236,47 @@ body {
 }
 
 .job-tag {
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(0, 82, 204, 0.08);
+  /* updated to blue */
   color: var(--primary);
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.4s ease forwards;
 }
 
-/* Auth Pages */
-.auth-container {
-  min-height: calc(100vh - 80px); /* minus navbar */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
 }
 
-.auth-card {
-  width: 100%;
-  max-width: 450px;
-  padding: 2.5rem;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

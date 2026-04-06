@@ -7,7 +7,8 @@ const JobSchema = new mongoose.Schema({
     salary: { type: String, required: true },
     description: { type: String, required: true },
     requirements: { type: [String], default: [] },
-    recruiter: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+    recruiter: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    closingDate: { type: Date, required: true }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Job', JobSchema);

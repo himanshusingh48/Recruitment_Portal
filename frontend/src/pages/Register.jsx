@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { UserPlus } from 'lucide-react';
+import './Auth.css';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -88,7 +89,7 @@ const Register = () => {
                     <div className="form-group">
                         <label className="form-label">I am a...</label>
                         <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
-                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', padding: '0.75rem', border: '1px solid var(--glass-border)', borderRadius: '8px', flex: 1, backgroundColor: formData.role === 'applicant' ? 'rgba(99, 102, 241, 0.2)' : 'transparent', borderColor: formData.role === 'applicant' ? 'var(--primary)' : 'var(--glass-border)' }}>
+                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', padding: '0.75rem', border: '1px solid var(--glass-border)', borderRadius: '8px', flex: 1, backgroundColor: formData.role === 'applicant' ? 'rgba(0, 82, 204, 0.08)' : 'transparent', borderColor: formData.role === 'applicant' ? 'var(--primary)' : 'var(--glass-border)' }}>
                                 <input
                                     type="radio"
                                     name="role"
@@ -97,10 +98,10 @@ const Register = () => {
                                     onChange={handleChange}
                                     style={{ accentColor: 'var(--primary)' }}
                                 />
-                                <span style={{ fontSize: '0.9rem', color: formData.role === 'applicant' ? 'white' : 'var(--text-muted)' }}>Job Seeker</span>
+                                <span style={{ fontSize: '0.9rem', color: formData.role === 'applicant' ? 'var(--primary)' : 'var(--text-muted)' }}>Job Seeker</span>
                             </label>
 
-                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', padding: '0.75rem', border: '1px solid var(--glass-border)', borderRadius: '8px', flex: 1, backgroundColor: formData.role === 'recruiter' ? 'rgba(99, 102, 241, 0.2)' : 'transparent', borderColor: formData.role === 'recruiter' ? 'var(--primary)' : 'var(--glass-border)' }}>
+                            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', padding: '0.75rem', border: '1px solid var(--glass-border)', borderRadius: '8px', flex: 1, backgroundColor: formData.role === 'recruiter' ? 'rgba(0, 82, 204, 0.08)' : 'transparent', borderColor: formData.role === 'recruiter' ? 'var(--primary)' : 'var(--glass-border)' }}>
                                 <input
                                     type="radio"
                                     name="role"
@@ -109,7 +110,7 @@ const Register = () => {
                                     onChange={handleChange}
                                     style={{ accentColor: 'var(--primary)' }}
                                 />
-                                <span style={{ fontSize: '0.9rem', color: formData.role === 'recruiter' ? 'white' : 'var(--text-muted)' }}>Recruiter</span>
+                                <span style={{ fontSize: '0.9rem', color: formData.role === 'recruiter' ? 'var(--primary)' : 'var(--text-muted)' }}>Recruiter</span>
                             </label>
                         </div>
                     </div>
